@@ -18,16 +18,29 @@ class CompanyResearchTasks():
 
     def manage_research(self, agent: Agent, companies: list[str], positions: list[str], tasks: list[Task]):
         return Task(
-            description=dedent(f"""Based on the list of companies {companies} and the positions {positions},
-                use the results from the Company Research Agent to research each position in each company.
-                to put together a json object containing the URLs for 3 blog articles, the URLs and title 
-                for 3 YouTube interviews for each position in each company.
-                               
+            description=dedent(f"""
+Based on the list of companies {companies} and the positions {positions}, use the results from the Company Research Agent to research each position in each company.
+Utilize web search and YouTube to gather information on each position within each company: 3 blog articles, 3 YouTube interviews - ensure to include metadata such as the URLs and titles.
                 """),
             agent=agent,
-            expected_output=dedent(
-                """A json object containing the URLs for 3 blog articles and the URLs and 
-                    titles for 3 YouTube interviews for each position in each company."""),
+            expected_output=dedent("""
+                {
+                    "companyName": {
+                        "positionName": {
+                            "blogs": [
+                                {"title": "Blog Article 1 Title", "url": "http://exampleblog1.com"},
+                                {"title": "Blog Article 2 Title", "url": "http://exampleblog2.com"},
+                                {"title": "Blog Article 3 Title", "url": "http://exampleblog3.com"}
+                            ],
+                            "youtubeInterviews": [
+                                {"title": "YouTube Interview 1 Title", "url": "http://exampleyoutube1.com"},
+                                {"title": "YouTube Interview 2 Title", "url": "http://exampleyoutube2.com"},
+                                {"title": "YouTube Interview 3 Title", "url": "http://exampleyoutube3.com"}
+                            ]
+                        }
+                    }
+                }
+                """),
             callback=self.append_event_callback,
             context=tasks,
             output_json=PositionInfoList
@@ -35,27 +48,43 @@ class CompanyResearchTasks():
 
     def company_research(self, agent: Agent, company: str, positions: list[str]):
         return Task(
-            description=dedent(f"""Research the position {positions} for the {company} company. 
-                For each position, 
-                               
-                               nd the URLs for 3 recent blog articles and the URLs and titles for
-                3 recent YouTube interviews for the person in each position.
-                Return this collected information in a JSON object.
+            description=dedent(f"""Research the positions {positions} for the company {company}. 
+                For each position, find 3 recent blog articles and 3 recent YouTube interviews, including their URLs and titles.
+                Compile this information into a JSON object.
                                
                 Helpful Tips:
-                - To find the blog articles names and URLs, perform searches on Google such like the following:
-                    - "{company} [POSITION HERE] blog articles"
-                - To find the youtube interviews, perform searches on YouTube such as the following:
-                    - "{company} [POSITION HERE] interview"
+                - To locate the blog articles and their URLs, conduct Google searches with queries like:
+                    - "{company} [POSITION] blog articles"
+                - To find YouTube interviews, search on YouTube with queries like:
+                    - "{company} [POSITION] interview"
                                
                 Important:
-                - Once you've found the information, immediately stop searching for additional information.
-                - Only return the requested information. NOTHING ELSE!
-                - Do not generate fake information. Only return the information you find. Nothing else!
-                - Do not stop researching until you find the requested information for each position in the company.
+                - Cease searching once you have gathered the requested information.
+                - Return only the requested information. NOTHING ELSE!
+                - Ensure all information is genuine and refrain from fabricating data.
+                - Persist in your research until you have obtained the requested information for each position at the company.
                 """),
             agent=agent,
-            expected_output="""A JSON object containing the researched information for each position in the company.""",
+            expected_output=dedent("""
+                {
+                    "company": "<company_name>",
+                    "positions": [
+                        {
+                            "position": "<position_name>",
+                            "blogs": [
+                                {"title": "<Blog Article 1 Title>", "url": "<http://exampleblog1.com>"},
+                                {"title": "<Blog Article 2 Title>", "url": "<http://exampleblog2.com>"},
+                                {"title": "<Blog Article 3 Title>", "url": "<http://exampleblog3.com>"}
+                            ],
+                            "youtubeInterviews": [
+                                {"title": "<YouTube Interview 1 Title>", "url": "<http://exampleyoutube1.com>"},
+                                {"title": "<YouTube Interview 2 Title>", "url": "<http://exampleyoutube2.com>"},
+                                {"title": "<YouTube Interview 3 Title>", "url": "<http://exampleyoutube3.com>"}
+                            ]
+                        }
+                    ]
+                }
+                """),
             callback=self.append_event_callback,
             output_json=PositionInfo,
             async_execution=True

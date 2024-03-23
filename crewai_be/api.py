@@ -13,12 +13,12 @@ from dotenv import load_dotenv
 from crew import CompanyResearchCrew
 from job_manager import append_event, jobs, jobs_lock, Event
 from utils.logging import logger
-
-
 load_dotenv()
-
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "*"}})
+
+
+## Need more routes
 
 
 def kickoff_crew(job_id, companies: list[str], positions: list[str]):
@@ -45,7 +45,6 @@ def kickoff_crew(job_id, companies: list[str], positions: list[str]):
         jobs[job_id].events.append(
             Event(timestamp=datetime.now(), data="Crew complete"))
 
-
 @app.route('/api/crew', methods=['POST'])
 def run_crew():
     logger.info("Received request to run crew")
@@ -63,7 +62,6 @@ def run_crew():
     thread.start()
 
     return jsonify({"job_id": job_id}), 202
-
 
 @app.route('/api/crew/<job_id>', methods=['GET'])
 def get_status(job_id):
@@ -85,7 +83,6 @@ def get_status(job_id):
         "result": result_json,
         "events": [{"timestamp": event.timestamp.isoformat(), "data": event.data} for event in job.events]
     })
-
 
 if __name__ == '__main__':
     app.run(debug=True, port=3001)
