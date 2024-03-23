@@ -5,10 +5,10 @@ from threading import Thread
 from uuid import uuid4
 
 # Related third-party imports
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, send_file
 from flask_cors import CORS
 from dotenv import load_dotenv
-
+import pandas as pd
 # Local application/library specific imports
 from crew import CompanyResearchCrew
 from job_manager import append_event, jobs, jobs_lock, Event
@@ -20,6 +20,16 @@ CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 ## Need more routes
 
+
+@app.route('/api/download_report/<job_id>', methods=['GET'])
+def download_report(job_id):
+    # Assume get_job_data retrieves the job's data
+    data = get_job_data(job_id)
+    # For CSV
+    df = pd.DataFrame(data)
+    csv_file = df.to_csv(index=False)
+    return send_file(csv_file, mimetype='text/csv', download_name='report.csv', as_attachment=True)
+    # For PDF, use ReportLab to generate a PDF file similarly and return it
 
 def kickoff_crew(job_id, companies: list[str], positions: list[str]):
     logger.info(f"Crew for job {job_id} is starting")
