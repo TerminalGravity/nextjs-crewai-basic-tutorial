@@ -23,7 +23,7 @@ export const FinalOutput: React.FC<FinalOutputProps> = ({
             <div key={index} className="mb-4">
               <div className="ml-4">
                 <p>
-                  <strong>Company:</strong>{" "}
+                  <strong>Company⚔️:</strong>{" "}
                   {capitalizeFirstLetter(position.company)}
                 </p>
                 <p>
@@ -34,7 +34,7 @@ export const FinalOutput: React.FC<FinalOutputProps> = ({
                   <strong>Name:</strong> {position.name}
                 </p>
                 <div>
-                  <strong>Blog Articles URLs:</strong>
+                  <strong>Blogs📜:</strong>
                   <ul>
                     {position.blog_articles_urls.length > 0 ? (
                       position.blog_articles_urls.map((url, urlIndex) => (
@@ -55,7 +55,7 @@ export const FinalOutput: React.FC<FinalOutputProps> = ({
                   </ul>
                 </div>
                 <div>
-                  <strong>YouTube Interviews:</strong>
+                  <strong>YouTube📺:</strong>
                   <ul>
                     {position.youtube_interviews_urls.map(
                       (video, videoIndex) => (

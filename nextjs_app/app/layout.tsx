@@ -7,7 +7,7 @@ import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NextJS CrewAI Tutorial",
+  title: "Something Agents",
   description: "Build a CrewAI app with Next.js and TypeScript",
 };
 

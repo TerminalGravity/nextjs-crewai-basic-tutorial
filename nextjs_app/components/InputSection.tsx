@@ -43,7 +43,7 @@ export default function InputSection({
           onClick={handleAddClick}
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
         >
-          Add
+          Add 
         </button>
       </div>
       <ul className="mt-2">
