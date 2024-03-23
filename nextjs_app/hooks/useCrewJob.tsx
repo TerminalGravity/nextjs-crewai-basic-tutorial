@@ -30,6 +30,8 @@ export const useCrewJob = () => {
   const [events, setEvents] = useState<EventType[]>([]);
   const [positionInfoList, setPositionInfoList] = useState<PositionInfo[]>([]);
   const [currentJobId, setCurrentJobId] = useState<string>("");
+  const [startTime, setStartTime] = useState<Date | null>(null);
+  const [endTime, setEndTime] = useState<Date | null>(null);
 
   // useEffects
   useEffect(() => {
@@ -60,6 +62,7 @@ export const useCrewJob = () => {
             clearInterval(intervalId);
           }
           setRunning(false);
+          setEndTime(new Date()); // Set the end time when the job completes or errors out
           toast.success(`Job ${status.toLowerCase()}.`);
         }
       } catch (error) {
@@ -88,6 +91,8 @@ export const useCrewJob = () => {
     setEvents([]);
     setPositionInfoList([]);
     setRunning(true);
+    setStartTime(new Date()); // Set the start time when the job starts
+    setEndTime(null); // Reset the end time
 
     try {
       const response = await axios.post<{ job_id: string }>(
@@ -122,5 +127,7 @@ export const useCrewJob = () => {
     positions,
     setPositions,
     startJob,
+    startTime,
+    endTime,
   };
 };

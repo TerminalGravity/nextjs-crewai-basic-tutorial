@@ -14,7 +14,7 @@ export const FinalOutput: React.FC<FinalOutputProps> = ({
 
   return (
     <div className="flex flex-col h-full">
-      <h2 className="text-lg font-semibold my-2">Final Output</h2>
+      <h2 className="text-2xl font-semibold my-2 text-indigo-600">Final Output</h2>
       <div className="flex-grow overflow-auto border-2 border-gray-300 p-2">
         {positionInfoList.length === 0 ? (
           <p>No job result yet.</p>
@@ -23,15 +23,15 @@ export const FinalOutput: React.FC<FinalOutputProps> = ({
             <div key={index} className="mb-4">
               <div className="ml-4">
                 <p>
-                  <strong>Company⚔️:</strong>{" "}
+                  <strong className="text-green-600">Company⚔️:</strong>{" "}
                   {capitalizeFirstLetter(position.company)}
                 </p>
                 <p>
-                  <strong>Position:</strong>{" "}
+                  <strong className="text-green-600">Position:</strong>{" "}
                   {capitalizeFirstLetter(position.position)}
                 </p>
                 <p>
-                  <strong>Name:</strong> {position.name}
+                  <strong className="text-green-600">Name:</strong> {position.name}
                 </p>
                 <div>
                   <strong>Blogs📜:</strong>

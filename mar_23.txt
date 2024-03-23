@@ -1,0 +1,46 @@
+To establish a clear visual hierarchy in your content, especially for components like "Final Output" and "Event Details", consider the following adjustments in your CSS and component structure. This will help users navigate through the content more naturally.
+
+### Enhancing "Final Output" Title
+
+For the "Final Output" title in [FinalOutput.tsx](file:///home/jack/Git%20Repositories/nextjs-crewai-basic-tutorial/nextjs_app/components/FinalOutput.tsx#1%2C1-1%2C1), you can increase the font size and perhaps change the color to make it stand out more. Assuming you're using Tailwind CSS, you can modify the title's class to include larger font size and a different color.
+
+```typescript:nextjs_app/components/FinalOutput.tsx
+17|      <h2 className="text-2xl font-semibold my-2 text-indigo-600">Final Output</h2>
+```
+
+### Distinguishing Section Titles
+
+For other section titles within the "Final Output" component, you can apply similar changes. For example, to make the "Company", "Position", and "Name" titles stand out, you can bold them and change their color.
+
+```typescript:nextjs_app/components/FinalOutput.tsx
+26|                  <strong className="text-green-600">Company⚔️:</strong>
+30|                  <strong className="text-green-600">Position:</strong>
+34|                  <strong className="text-green-600">Name:</strong>
+```
+
+### Enhancing "Event Details"
+
+If you have an "Event Details" section or similar, ensure its title and content are also visually distinct. This example assumes you have a similar setup for event details as you do for the final output.
+
+```typescript:nextjs_app/components/EventLog.tsx
+// Assuming your EventLog component has a similar structure
+2|      <h2 className="text-2xl font-semibold my-2 text-indigo-600">Event Details</h2>
+```
+
+And for the content within "Event Details", you can apply a similar strategy as with "Final Output" to make important information stand out.
+
+### Global Styles
+
+For global styles that affect the entire application, consider using your `globals.css` file. For example, you can define default styles for all `<h2>` elements to ensure titles across the app have a consistent look.
+
+```css:nextjs_app/app/globals.css
+29|@layer utilities {
+30|  h2 {
+31|    font-size: 1.5rem;
+32|    color: #4f46e5; /* Indigo */
+33|    font-weight: 600;
+34|  }
+35|}
+```
+
+These adjustments will help create a clearer visual hierarchy, guiding users through your content more effectively.

@@ -27,6 +27,11 @@ body {
 }
 
 @layer utilities {
+  h2 {
+    font-size: 1.5rem;
+    color: #4f46e5; /* Indigo */
+    font-weight: 600;
+  }
   .text-balance {
     text-wrap: balance;
   }

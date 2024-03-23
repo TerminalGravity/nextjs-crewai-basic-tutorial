@@ -51,13 +51,11 @@ Utilize web search and YouTube to gather information on each position within eac
             description=dedent(f"""Research the positions {positions} for the company {company}. 
                 For each position, find 3 recent blog articles and 3 recent YouTube interviews, including their URLs and titles.
                 Compile this information into a JSON object.
-                               
                 Helpful Tips:
                 - To locate the blog articles and their URLs, conduct Google searches with queries like:
                     - "{company} [POSITION] blog articles"
                 - To find YouTube interviews, search on YouTube with queries like:
                     - "{company} [POSITION] interview"
-                               
                 Important:
                 - Cease searching once you have gathered the requested information.
                 - Return only the requested information. NOTHING ELSE!
