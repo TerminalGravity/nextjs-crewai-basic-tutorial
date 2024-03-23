@@ -113,3 +113,51 @@ The frontend of this Next.js application is structured to facilitate user intera
 
 ### Enhancing Communication:
 
+
+For the described Next.js and Flask application, implementing Server-Sent Events (SSE) offers the path of least resistance for enhancing communication between the frontend and backend. SSE is simpler to set up for server-to-client communication, which aligns with the application's need to push updates from the backend to the frontend as research jobs progress.
+
+### Implementing SSE:
+
+#### Backend (Flask):
+1. **Create an SSE Endpoint**: Define a Flask route that streams data. Use a generator function to yield data in a format suitable for SSE.
+
+```python
+from flask import Flask, Response
+
+app = Flask(__name__)
+
+def stream_data():
+    # Example generator function
+    # Replace with actual logic to yield data
+    yield "data: {}\n\n".format("Server update")
+
+@app.route('/stream')
+def stream():
+    return Response(stream_data(), content_type='text/event-stream')
+```
+
+#### Frontend (Next.js):
+1. **Connect to SSE Endpoint**: Use the `EventSource` API to listen for messages from the server.
+
+```typescript:nextjs_app/hooks/useCrewJob.tsx
+import { useEffect } from "react";
+
+export const useCrewJob = () => {
+  useEffect(() => {
+    const eventSource = new EventSource("http://localhost:3001/stream");
+
+    eventSource.onmessage = function(event) {
+      console.log("New message from server", event.data);
+      // Handle the event data
+    };
+
+    return () => {
+      eventSource.close();
+    };
+  }, []);
+
+  // Rest of the hook logic
+};
+```
+
+This setup allows the Flask backend to send real-time updates to the Next.js frontend without the frontend needing to poll the server. SSE is well-suited for this application's requirements, providing a straightforward and efficient method to push backend updates to the frontend.
